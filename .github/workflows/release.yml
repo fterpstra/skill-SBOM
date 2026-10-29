@@ -1,0 +1,62 @@
+# Release via Changesets.
+#
+# Bij elke push naar main kijkt changesets/action of er changesets open staan.
+# Zo ja, dan opent of actualiseert hij een pull request "Nieuwe release" met de
+# versieverhoging en de CHANGELOG. Wordt die PR gemerged, dan zijn er geen
+# changesets meer; de actie draait dan `changeset git-tag`, pusht de tag
+# v<versie> en maakt zelf de GitHub-release aan met de CHANGELOG-tekst van die
+# versie. Die release is wat de marketplace als nieuwe versie ziet.
+#
+# De actie werkt met een token van een GitHub App, niet met GITHUB_TOKEN: een
+# pull request die met GITHUB_TOKEN is aangemaakt, start geen andere workflows,
+# zodat verplichte controles op de versie-PR nooit zouden draaien. Nodig in de
+# repo-instellingen: variabele RELEASE_APP_CLIENT_ID en secret
+# RELEASE_APP_PRIVATE_KEY van een App die alleen op deze repository is
+# geïnstalleerd, met schrijfrecht op contents en pull requests.
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+concurrency: ${{ github.workflow }}-${{ github.ref }}
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Token van de release-App ophalen
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+          permission-contents: write
+          permission-pull-requests: write
+
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Geen dependency-cache: deze taak heeft schrijfrechten, en een cache die
+      # elders is gevuld, kan hier code binnenbrengen.
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          package-manager-cache: false
+
+      - name: Afhankelijkheden installeren
+        run: npm ci
+
+      - name: Versie-PR openen of release aanmaken
+        uses: changesets/action@v2
+        with:
+          github-token: ${{ steps.app-token.outputs.token }}
+          version-script: npm run version
+          publish-script: npx changeset git-tag
+          pr-title: "Nieuwe release"
+          commit-message: "Versie en CHANGELOG bijgewerkt"

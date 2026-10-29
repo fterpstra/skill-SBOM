@@ -1,0 +1,19 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <title>Milieustraten</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="container">
+  <h1>Openingstijden milieustraten</h1>
+  <table class="table" id="tijden">
+    {% for m in milieustraten %}
+    <tr data-toggle="tooltip" title="{{ m.adres }}"><td>{{ m.naam }}</td><td>{{ m.open }}</td></tr>
+    {% endfor %}
+  </table>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <script>$(function () { $('[data-toggle="tooltip"]').tooltip(); });</script>
+</body>
+</html>

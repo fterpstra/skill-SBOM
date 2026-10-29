@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: flask-requirements-cdn
+expected_outcome: |
+  Valid CycloneDX 1.7 and SPDX 2.3 SBOMs that include Flask 2.0.1 and gunicorn 20.1.0 plus their transitive dependencies (Werkzeug, Jinja2, itsdangerous, click, MarkupSafe), Bootstrap 4.3.1 and jQuery 3.3.1 (slim) loaded from CDNs with hashes, Python 3.9 as environment component, and VEX entries for the vulnerable jQuery/Bootstrap versions that are not marked not_affected, since the page uses them.
+context:
+  scaffold_script: place-files.sh

@@ -1,0 +1,15 @@
+{
+  "name": "geonovum-sbom",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Agent-skill van Geonovum voor het maken van SBOMs. Dit pakket wordt niet naar npm gepubliceerd; package.json is er voor Changesets.",
+  "license": "EUPL-1.2",
+  "scripts": {
+    "changeset": "changeset",
+    "version": "changeset version && python3 scripts/sync_version.py && python3 scripts/generate_plugin.py",
+    "check": "python3 scripts/generate_plugin.py --check && python3 scripts/sync_version.py --check"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^3.0.3"
+  }
+}

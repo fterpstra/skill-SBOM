@@ -1,0 +1,57 @@
+publiccodeYmlVersion: "0.7"
+
+name: SBOM-skill
+url: https://github.com/fterpstra/skill-SBOM.git
+softwareVersion: "0.0.0"
+releaseDate: "2026-10-29"
+landingURL: https://github.com/fterpstra/skill-SBOM
+softwareType: addon
+
+platforms:
+  - linux
+  - mac
+  - windows
+
+developmentStatus: development
+
+description:
+  nl:
+    shortDescription: Agent-skill van Geonovum die SBOMs maakt in CycloneDX en SPDX volgens de CISA Minimum Elements 2026.
+    longDescription: >
+      Deze repository bevat een agent-skill van Geonovum voor het maken van een SBOM (software bill of materials). Een agent-skill is een instructiedocument dat een AI-assistent erbij pakt zodra het onderwerp langskomt. De skill brengt een repository in kaart, ook als er geen lockfile is: met de hand meegeleverde JavaScript- en CSS-bestanden, bibliotheken die in een ander bestand zijn ingebed, CDN-links en componenten die de server levert. Daarna maakt hij een CycloneDX 1.7-SBOM met een VEX-analyse van bekende kwetsbaarheden uit OSV, en een SPDX 2.3-SBOM. Per component staan producent, versie, purl of CPE, licentie en hash erin, zoals de 2026 CISA Minimum Elements vragen. Beide bestanden worden offline gevalideerd tegen de officiële schema's, en de skill rapporteert welke elementen nog ontbreken. De skill is een hulpmiddel en levert geen conformiteitsverklaring voor de Cyber Resilience Act.
+    features:
+      - Agent skill die voor een repository een CycloneDX 1.7-SBOM met VEX en een SPDX 2.3-SBOM maakt
+      - Werkt ook zonder lockfile, met meegeleverde bestanden, ingebedde bibliotheken, CDN-links en componenten uit de omgeving
+      - Hashes van de gecommitte bestanden, zodat ze ook op Windows met core.autocrlf reproduceerbaar zijn
+      - Kwetsbaarheden uit OSV met VEX-analyse per component
+      - Offline validatie tegen de meegeleverde CycloneDX- en SPDX-schema's
+      - Overzicht van ontbrekende elementen uit de 2026 CISA Minimum Elements
+
+legal:
+  license: EUPL-1.2
+  mainCopyrightOwner: Geonovum
+
+intendedAudience:
+  countries:
+    - NL
+  scope:
+    - government
+
+localisation:
+  availableLanguages:
+    - nl
+  localisationReady: false
+
+maintenance:
+  type: internal
+  contacts:
+    - name: Frank Terpstra
+      affiliation: Geonovum
+
+organisation:
+  name: Geonovum
+  uri: https://organisaties.overheid.nl/27912339/Stichting_Geonovum
+
+supports:
+  - id: https://www.cisa.gov/resources-tools/resources/2026-minimum-elements-software-bill-materials-sbom
+  - id: https://eur-lex.europa.eu/eli/reg/2024/2847/oj
