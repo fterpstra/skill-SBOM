@@ -1,0 +1,6 @@
+schema_version: "1.1"
+name: vendored-php-no-lockfile
+expected_outcome: |
+  Valid CycloneDX 1.7 and SPDX 2.3 SBOMs listing jQuery 1.9.1, jQuery UI 1.10.1, Modernizr 2.6.2 (vendored, unused) and Font Awesome 4.2.0 (CDN) with producer, purl, license and hashes of the committed files, PHP/Apache as environment components, tool/author/lifecycle metadata, and VEX marking the jQuery CVEs not_affected because no page loads the files.
+context:
+  scaffold_script: place-files.sh
